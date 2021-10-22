@@ -26,10 +26,13 @@ app.use(express.json()) //permitir que o express lide com JSON
 
 app.use(router) // usar as rotas do arquivo ROUTES.TS
 
+
+// ------- AUTENTICAÇÃO COM GITHUB ----------------
 app.get("/github", (request, response) =>{
     response.redirect(`https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}`)
 })
 
+// Função callbck que é configurado no GITHUB
 app.get("/sigin/callback" ,(request,response) =>{
 
     const { code } = request.query
@@ -37,5 +40,6 @@ app.get("/sigin/callback" ,(request,response) =>{
     return response.json(code)
 
 })
+//--------------------------------------------------
 
 export { serverHttp, io}
